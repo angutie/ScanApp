@@ -1,0 +1,27 @@
+@model MyModel
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+@if(Model!=null) {
+    <div>@Model.MyData.ToString("yyyy-MM-dd")</div>
+    <div>@Model.Location.ToString()</div>
+    <ul>
+        @foreach (var name in Model.Names)
+        {
+            <li>@name</li>
+        }
+    </ul>
+
+    <div>My Money total: @Model.Money.ToString("c")</div>
+
+    @using(Html.BeginForm()) {
+        
+        @Html.LabelFor(model => model.Money)
+        @Html.TextBoxFor(model => model.Money);
+        <button type="submit">Give me money</button>
+    }
+}
+    
