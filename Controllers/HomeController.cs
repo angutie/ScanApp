@@ -28,7 +28,7 @@ namespace mentor_3.Controllers
                 ScannerId = "001"
 
 
-            }
+            };
             return View();    
         }
         public IActionResult Index()

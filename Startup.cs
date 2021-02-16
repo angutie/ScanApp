@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using 
+using Microsoft.EntityFrameworkCore;
+
 namespace mentor_3
 {
     public class Startup
@@ -24,7 +25,7 @@ namespace mentor_3
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<ScanDatabaseContext>( options => options.UseSqlServer)
+            services.AddDbContext<ScanDatabaseContext>( options => options.UseSqlServer(Configuration.GetConnectionString("Database")));
     
         }
 
