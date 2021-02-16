@@ -11,12 +11,21 @@ namespace mentor_3.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get;set; }
-        public DateTime Time{ get; set; }
-    
-        public string Location { get; set; }
         
-        public int Employee { get;set; }
+        
+        [Column("Timestamp")]
+        public DateTime CreatedTime{ get; set; }
+    
 
+        [Column("Location")] 
+        public string Location { get; set; }
+
+
+        [Column("EmployeeId")]
+        public int EmployeeId { get;set; }
+
+
+        [Column("ScannerId")]
         public int ScannerId { get; set;}
     }
 

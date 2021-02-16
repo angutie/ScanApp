@@ -13,24 +13,14 @@ namespace mentor_3.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ScanDatabaseContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ScanDatabaseContext context)
         {
+            _context = context;
             _logger = logger;
         }
 
-        public IActionResult Scans()
-        {   
-            var ClientInfo = new MyModel{
-                Id = 1001,
-                Location = "102",
-                Address = "Client Address",
-                ScannerId = "001"
-
-
-            };
-            return View();    
-        }
         public IActionResult Index()
         {
             return View();
@@ -38,26 +28,50 @@ namespace mentor_3.Controllers
 
         public IActionResult Privacy()
         {
-            var data = new MyModel {
+            var data = new MyModel
+            {
                 MyData = DateTime.Now,
-                Names = new List<string>() {"Jon","Andres","Josiah"},
+                Names = new List<string>() { "Jon", "Andres", "Josiah" },
                 Money = 5.50,
             };
 
             return View(data);
         }
 
+        public IActionResult Scans()
+        {
+            var ClientInfo = new MyModel
+            {
+                Id = 1001,
+                Location = "102",
+                Address = "Client Address",
+                ScannerId = "001"
+
+
+            };
+            return View();
+        }
         [HttpPost]
-    
-        public ActionResult Scans(MyModel dataclein) {
+
+        public async Task<ActionResult<PostingScans>> ScansAsync(PostingScans data)
+        {
             
+            await this._context.Scans.AddAsync(data);
+            await this._context.SaveChangesAsync();
             // Pull data from client dataclein
             // Save Data to data
             // Pull list of Data from datalist
             // Return list of data in model to client in view
+            var scans = this._context.Scans.ToList();
 
-
-            return View();
+            var log = new PageData
+            {
+                Scans = scans
+            };
+            return View(new PageData
+            {
+                Scans = scans
+            });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -67,5 +81,5 @@ namespace mentor_3.Controllers
         }
     }
 
-    
+
 }

@@ -1,14 +1,16 @@
-@model PostingScans
+@model PageData
 @{
     ViewData["Title"] = "Scanner Log";
 }
 
 @using (Html.BeginForm())
 {
-    @Html.LabelFor(m => m.Location)
-    @Html.TextBoxFor(m => m.Location)
-    @Html.LabelFor(m => m.ScannerId)
-    @Html.TextBoxFor(m => m.ScannerId)
+    @Html.LabelFor(m => m.SingleScanItem.Location)
+    @Html.TextBoxFor(m => m.SingleScanItem.Location)
+    @Html.LabelFor(m => m.SingleScanItem.ScannerId)
+    @Html.TextBoxFor(m => m.SingleScanItem.ScannerId)
+    @Html.TextBoxFor(m => m.SingleScanItem.EmployeeId)
+    <button type="submit">Submit</button>
         
 }
 

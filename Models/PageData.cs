@@ -7,5 +7,6 @@ namespace mentor_3.Models
 {
     public class PageData {
         public List<PostingScans> Scans {get;set;}
+        public PostingScans SingleScanItem {get;set;}
     }
 }

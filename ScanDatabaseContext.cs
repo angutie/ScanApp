@@ -13,13 +13,13 @@ namespace mentor_3
             {
 
             }
-        public DbSet<HomeController> Scans {get;set;}
+        public DbSet<PostingScans> Scans {get;set;}
 
-        public object PostingScans { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PostingScans>().HasData(new PostingScans(){ID=1});
+            modelBuilder.Entity<PostingScans>().Property(b => b.CreatedTime ).HasDefaultValueSql("getdate()");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
