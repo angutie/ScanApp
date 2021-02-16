@@ -19,7 +19,7 @@ namespace mentor_3.Controllers
             _logger = logger;
         }
 
-        public IActionResult Scanner()
+        public IActionResult Scans()
         {   
             var ClientInfo = new MyModel{
                 Id = 1001,
