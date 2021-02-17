@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using mentor_3.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace mentor_3.Controllers
 {
@@ -40,23 +41,21 @@ namespace mentor_3.Controllers
 
         public IActionResult Scans()
         {
-            var ClientInfo = new MyModel
+            var scans = this._context.Scans.ToList();
+
+            var log = new PageData
             {
-                Id = 1001,
-                Location = "102",
-                Address = "Client Address",
-                ScannerId = "001"
+                Scans = scans
+            };        
 
-
-            };
-            return View();
+            return View(log);
         }
         [HttpPost]
 
-        public async Task<ActionResult<PostingScans>> ScansAsync(PostingScans data)
+        public async Task<ActionResult<PostingScans>> ScansAsync(PageData data)
         {
             
-            await this._context.Scans.AddAsync(data);
+            await this._context.Scans.AddAsync(data.SingleScanItem);
             await this._context.SaveChangesAsync();
             // Pull data from client dataclein
             // Save Data to data
@@ -68,10 +67,17 @@ namespace mentor_3.Controllers
             {
                 Scans = scans
             };
-            return View(new PageData
-            {
-                Scans = scans
-            });
+            return View(log);
+
+        }
+        [HttpDelete]
+
+        public async Task<ActionResult<PostingScans>> DeleteItemAsync(int id)
+        {
+            var listItem = await this._context.Scans.FirstOrDefaultAsync(x => x.ID == id);
+            this._context.Scans.Remove(listItem);
+            await this._context.SaveChangesAsync();
+            return Ok();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

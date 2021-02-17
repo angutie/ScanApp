@@ -1,19 +1,36 @@
-@model PageData
+@model PageData;
+@using mentor_3.Models;
+
 @{
     ViewData["Title"] = "Scanner Log";
 }
+    
 
-@using (Html.BeginForm())
+
+@using (Html.BeginForm()) 
 {
     @Html.LabelFor(m => m.SingleScanItem.Location)
     @Html.TextBoxFor(m => m.SingleScanItem.Location)
     @Html.LabelFor(m => m.SingleScanItem.ScannerId)
     @Html.TextBoxFor(m => m.SingleScanItem.ScannerId)
-    @Html.TextBoxFor(m => m.SingleScanItem.EmployeeId)
+    @Html.TextBoxFor(m => m.SingleScanItem.EmployeeId) 
     <button type="submit">Submit</button>
         
 }
-
-<ul><li>
-    
-</li></ul>
+<table>  
+   <tr>  
+      <th>Location</th>  
+      <th>Scanner Id</th>  
+      <th>Employee Id</th> 
+      <th>Remove</th> 
+   </tr>  
+   @foreach (var item in Model.Scans)
+   { 
+   <tr>  
+      <td>@item.Location </td>  
+      <td>@item.EmployeeId</td>  
+      <td>@item.ScannerId</td> 
+      <td><Button>X</Button></td>
+   </tr>
+   } 
+</table>  
