@@ -50,11 +50,12 @@ namespace mentor_3.Controllers
 
             return View(log);
         }
+
+        
         [HttpPost]
 
         public async Task<ActionResult<PostingScans>> ScansAsync(PageData data)
         {
-            
             await this._context.Scans.AddAsync(data.SingleScanItem);
             await this._context.SaveChangesAsync();
             // Pull data from client dataclein
@@ -69,7 +70,7 @@ namespace mentor_3.Controllers
             };
             return View(log);
 
-        }
+        }        
         [HttpDelete]
 
         public async Task<ActionResult<PostingScans>> DeleteItemAsync(int id)
@@ -77,7 +78,12 @@ namespace mentor_3.Controllers
             var listItem = await this._context.Scans.FirstOrDefaultAsync(x => x.ID == id);
             this._context.Scans.Remove(listItem);
             await this._context.SaveChangesAsync();
-            return Ok();
+            var scans = this._context.Scans.ToList();
+            var log = new PageData
+            {
+                Scans = scans
+            };
+            return View(log);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

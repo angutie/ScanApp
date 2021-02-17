@@ -14,23 +14,28 @@
     @Html.LabelFor(m => m.SingleScanItem.ScannerId)
     @Html.TextBoxFor(m => m.SingleScanItem.ScannerId)
     @Html.TextBoxFor(m => m.SingleScanItem.EmployeeId) 
-    <button type="submit">Submit</button>
+    <button type="submit" asp-action="post">Submit</button>
         
 }
-<table>  
+<table cellpadding="2" cellspacing="2">  
    <tr>  
       <th>Location</th>  
       <th>Scanner Id</th>  
       <th>Employee Id</th> 
       <th>Remove</th> 
    </tr>  
-   @foreach (var item in Model.Scans)
-   { 
-   <tr>  
-      <td>@item.Location </td>  
-      <td>@item.EmployeeId</td>  
-      <td>@item.ScannerId</td> 
-      <td><Button>X</Button></td>
-   </tr>
-   } 
-</table>  
+   @foreach (var item in Model.Scans){
+        <tr>
+            <td>@item.Location </td>
+            <td>@item.EmployeeId</td>
+            <td>@item.ScannerId</td>
+            <td>
+                <form method="DELETE" asp-controller="Home">
+                    <Button type="submit" value="@item.ID">X</Button>
+                </form>
+            </td>
+        </tr>
+       
+   }
+</table>
+ 
